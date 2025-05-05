@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YoedzX Site's</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+<footer class="footer">
+  © Copyright <a href="https://youtube.com/@sycze?si=gnkvFCSEp6p6QVeY" class="yoedzx" target="_blank">YoedzXDev</a> - 2025
+</footer>
+<!-- Pixel Art Alert Box -->
+<div id="pixelAlert" class="pixel-alert">
+  <div class="pixel-alert-content">
+    <span id="pixelAlertMessage"></span>
+    <button id="pixelAlertClose" class="pixel-button small">OK</button>
+  </div>
+</div>
+    <div class="container">
+        <header class="pixel-header">
+            <div class="header-content">
+                <h1>YoedzX Site's</h1>
+                <div class="music-player">
+                    <audio id="bgMusic" loop>
+                        <source src="https://files.catbox.moe/igy3ft.mp3" type="audio/mpeg">
+                    </audio>
+                    <button onclick="app.toggleMusic()" class="pixel-button music-btn">
+                        <i class="fas fa-music"></i> <span id="musicStatus">Play</span>
+                    </button>
+                    <button onclick="app.showThemeSelector()" class="pixel-button theme-btn">
+                        <i class="fas fa-palette"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="auth-section">
+                <div class="login-form" id="loginForm">
+                    <input type="text" id="githubUsername" placeholder="User" class="pixel-input">
+                    <input type="password" id="githubToken" placeholder="Password" class="pixel-input">
+                    <button onclick="app.login()" class="pixel-button">Login</button>
+                </div>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span id="loggedInUser"></span>
+                    <button onclick="app.logout()" class="pixel-button">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <nav class="pixel-nav">
+            <button onclick="app.showSection('apis')" class="pixel-button active" data-section="apis">
+                API Endpoints
+            </button>
+            <button onclick="app.showSection('scripts')" class="pixel-button" data-section="scripts">
+                Script Bots
+            </button>
+            <button onclick="app.showSection('codes')" class="pixel-button" data-section="codes">
+                Share Codes
+            </button>
+            <button onclick="app.showAddForm()" class="pixel-button add-btn" id="addBtn" style="display: none;">
+                <i class="fas fa-plus"></i> Add
+            </button>
+        </nav>
+
+        <main>
+            <section id="apis" class="content-section active">
+                <h2>API Endpoints</h2>
+                <div class="items-container" id="apiItems"></div>
+            </section>
+
+            <section id="scripts" class="content-section">
+                <h2>Script Bots</h2>
+                <div class="items-container" id="scriptItems"></div>
+            </section>
+
+            <section id="codes" class="content-section">
+                <h2>Share Codes</h2>
+                <div class="items-container" id="codeItems"></div>
+            </section>
+
+            <div class="add-form" id="addForm" style="display: none;">
+                <h2>Add New Item</h2>
+                <select id="itemType" class="pixel-input">
+                    <option value="apis">API Endpoint</option>
+                    <option value="scripts">Script Bot</option>
+                    <option value="codes">Share Code</option>
+                    <option value="music">Custom Song</option>
+                </select>
+                
+                <input type="text" id="itemName" placeholder="Name" class="pixel-input" style="display: none;">
+                
+                <input type="text" id="itemEndpoint" placeholder="Endpoint/Link" class="pixel-input api-field" style="display: none;">
+                <select id="itemApiType" class="pixel-input api-field" style="display: none;">
+                    <option value="json">JSON</option>
+                    <option value="media">Media</option>
+                </select>
+                
+                <input type="text" id="itemScriptLink" placeholder="Script Link" class="pixel-input script-field" style="display: none;">
+                
+                <textarea id="itemCode" placeholder="Code" class="pixel-input code-field" style="display: none;"></textarea>
+                
+                <div class="music-field" style="display: none;">
+                    <input type="text" id="itemMusicUrl" placeholder="Music URL (e.g., https://example.com/song.mp3)" class="pixel-input">
+                    <small>Note: This will replace any existing custom song</small>
+                </div>
+                
+                <div class="form-actions">
+                    <button onclick="app.addItem()" class="pixel-button">Add Item</button>
+                    <button onclick="app.hideAddForm()" class="pixel-button cancel-btn">Cancel</button>
+                </div>
+            </div>
+
+           <!-- Theme Selector Modal -->
+<div class="modal" id="themeModal" style="display: none;">
+    <div class="modal-content pixel-box">
+        <span class="close" onclick="app.closeThemeModal()">&times;</span>
+        <h3>Theme Settings</h3>
+        
+        <div class="theme-options">
+            <h4>Available Themes</h4>
+            <div class="theme-grid">
+                <button onclick="app.changeTheme('default')" class="theme-option pixel-button" data-theme="default">
+                    <div class="theme-preview default-theme"></div>
+                    Default
+                </button>
+                <button onclick="app.changeTheme('dark')" class="theme-option pixel-button" data-theme="dark">
+                    <div class="theme-preview dark-theme"></div>
+                    Dark Mode
+                </button>
+                <button onclick="app.changeTheme('ocean')" class="theme-option pixel-button" data-theme="ocean">
+                    <div class="theme-preview ocean-theme"></div>
+                    Ocean
+                </button>
+                <button onclick="app.changeTheme('forest')" class="theme-option pixel-button" data-theme="forest">
+                    <div class="theme-preview forest-theme"></div>
+                    Forest
+                </button>
+                <button onclick="app.changeTheme('sunset')" class="theme-option pixel-button" data-theme="sunset">
+                    <div class="theme-preview sunset-theme"></div>
+                    Sunset
+                </button>
+                <button onclick="app.changeTheme('matrix')" class="theme-option pixel-button" data-theme="matrix">
+                    <div class="theme-preview matrix-theme"></div>
+                    Matrix
+                </button>
+                <button onclick="app.changeTheme('pastel')" class="theme-option pixel-button" data-theme="pastel">
+                    <div class="theme-preview pastel-theme"></div>
+                    Pastel
+                </button>
+                <button onclick="app.changeTheme('neon')" class="theme-option pixel-button" data-theme="neon">
+                    <div class="theme-preview neon-theme"></div>
+                    Neon
+                </button>
+                <button onclick="app.changeTheme('vintage')" class="theme-option pixel-button" data-theme="vintage">
+                    <div class="theme-preview vintage-theme"></div>
+                    Vintage
+                </button>
+                <button onclick="app.changeTheme('midnight')" class="theme-option pixel-button" data-theme="midnight">
+                    <div class="theme-preview midnight-theme"></div>
+                    Midnight
+                </button>
+                <button onclick="app.changeTheme('coffee')" class="theme-option pixel-button" data-theme="coffee">
+                    <div class="theme-preview coffee-theme"></div>
+                    Coffee
+                </button>
+                <button onclick="app.changeTheme('rose')" class="theme-option pixel-button" data-theme="rose">
+                    <div class="theme-preview rose-theme"></div>
+                    Rose
+                </button>
+                <button onclick="app.changeTheme('ice')" class="theme-option pixel-button" data-theme="ice">
+                    <div class="theme-preview ice-theme"></div>
+                    Ice
+                </button>
+                <button onclick="app.changeTheme('space')" class="theme-option pixel-button" data-theme="space">
+                    <div class="theme-preview space-theme"></div>
+                    Space
+                <button onclick="app.changeTheme('cyberpunk')" class="theme-option pixel-button" data-theme="cyberpunk">
+    <div class="theme-preview cyberpunk-theme"></div>
+    Cyberpunk
+</button>
+<button onclick="app.changeTheme('lavender')" class="theme-option pixel-button" data-theme="lavender">
+    <div class="theme-preview lavender-theme"></div>
+    Lavender
+</button>
+<button onclick="app.changeTheme('monochrome')" class="theme-option pixel-button" data-theme="monochrome">
+    <div class="theme-preview monochrome-theme"></div>
+    Monochrome
+</button>
+<button onclick="app.changeTheme('sakura')" class="theme-option pixel-button" data-theme="sakura">
+    <div class="theme-preview sakura-theme"></div>
+    Sakura
+</button>
+<button onclick="app.changeTheme('fire')" class="theme-option pixel-button" data-theme="fire">
+    <div class="theme-preview fire-theme"></div>
+    Fire
+                <button onclick="app.changeTheme('arctic')" class="theme-option pixel-button" data-theme="arctic">
+    <div class="theme-preview arctic-theme"></div>
+    Arctic
+</button>
+<button onclick="app.changeTheme('bronze')" class="theme-option pixel-button" data-theme="bronze">
+    <div class="theme-preview bronze-theme"></div>
+    Bronze
+</button>
+<button onclick="app.changeTheme('emerald')" class="theme-option pixel-button" data-theme="emerald">
+    <div class="theme-preview emerald-theme"></div>
+    Emerald
+</button>
+<button onclick="app.changeTheme('candy')" class="theme-option pixel-button" data-theme="candy">
+    <div class="theme-preview candy-theme"></div>
+    Candy
+</button>
+<button onclick="app.changeTheme('desert')" class="theme-option pixel-button" data-theme="desert">
+    <div class="theme-preview desert-theme"></div>
+    Desert
+</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- Music Selector Modal -->
+            <div class="modal" id="musicModal" style="display: none;">
+                <div class="modal-content pixel-box">
+                    <span class="close" onclick="app.closeMusicModal()">&times;</span>
+                    <h3>Select Music</h3>
+                    <div class="music-options">
+                        <button onclick="app.changeMusic('default')" class="pixel-button">
+                            Default Music
+                        </button>
+                        <button onclick="app.changeMusic('custom')" class="pixel-button">
+                            Custom Music
+                        </button>
+                        <button onclick="app.showAddForm('music')" class="pixel-button">
+                            <i class="fas fa-plus"></i> Add Custom
+                        </button>
+                    </div>
+                    <div id="currentMusicInfo">
+                        <p>Currently playing: <span id="currentMusicName">Default</span></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- API Output Modal -->
+    <div class="modal" id="outputModal" style="display: none;">
+        <div class="modal-content pixel-box">
+            <span class="close" onclick="app.closeModal()">&times;</span>
+            <h3>API Output</h3>
+            <div id="apiOutput"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
